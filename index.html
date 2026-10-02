@@ -1,0 +1,605 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>文章題シアター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--sky1:#DDF0FF;--sky2:#F7FBFF;--card:#FFFFFF;--ink:#1D2A4A;--sub:#5A6886;--line:#D5E0EE;--pink:#E8336D;--blue:#1E7FD6;--green:#2E9E4F;--orange:#F08C1A;--yellow:#FFE45C;
+--sF:#D8ECFF;--sS:#2A7BD1;--rF:#FFF4C9;--rS:#D29B00;--pF:#EEF0F4;--pS:#8A93A6;--nF:#FFE0EA;--nS:#E8336D;--amF:#FFD9E5;--isF:#D5E9FF;--areF:#D6F2DF;--plainF:#FFE9D1;--plainS:#E07B00;
+--okbg:#E3F6E9;--ok:#23864A;--bugbg:#FFF0D9;--bug:#B86200;--infobg:#EAF3FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky1:#13223A;--sky2:#0F1A2B;--card:#1B2940;--ink:#EAF1FF;--sub:#A9B8D3;--line:#2F4263;--sF:#1D3B63;--sS:#79B3F2;--rF:#4A3D12;--rS:#E8C24A;--pF:#2B3446;--pS:#9AA6BD;--nF:#4C1F30;--nS:#F37AA0;--amF:#4C1F30;--isF:#1D3B63;--areF:#1C4430;--plainF:#4A3316;--plainS:#F2A34A;--okbg:#17392A;--ok:#6BD69C;--bugbg:#3F2E14;--bug:#F2B35A;--infobg:#1C2F4E}}
+:root[data-theme="dark"]{--sky1:#13223A;--sky2:#0F1A2B;--card:#1B2940;--ink:#EAF1FF;--sub:#A9B8D3;--line:#2F4263;--sF:#1D3B63;--sS:#79B3F2;--rF:#4A3D12;--rS:#E8C24A;--pF:#2B3446;--pS:#9AA6BD;--nF:#4C1F30;--nS:#F37AA0;--amF:#4C1F30;--isF:#1D3B63;--areF:#1C4430;--plainF:#4A3316;--plainS:#F2A34A;--okbg:#17392A;--ok:#6BD69C;--bugbg:#3F2E14;--bug:#F2B35A;--infobg:#1C2F4E}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:linear-gradient(180deg,var(--sky1),var(--sky2) 320px);background-color:var(--sky2);color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",system-ui,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:560px;margin:0 auto;padding:10px 12px 40px}
+header{text-align:center;margin:6px 0 14px;position:relative}
+.title{display:inline-block;background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:6px 18px 8px;box-shadow:0 4px 0 var(--ink)}
+.title h1{margin:0;font-size:1.9rem;font-weight:800;line-height:1.2;letter-spacing:.01em}
+.title h1 .be{color:var(--pink);font-family:"Nunito",sans-serif;font-weight:900;font-size:2.3rem}
+.title h1 .hl{background:linear-gradient(transparent 62%,var(--yellow) 62%)}
+.pill{display:inline-block;margin-top:8px;background:#FFE3EE;color:var(--pink);border-radius:99px;padding:2px 16px;font-weight:800;font-size:.9rem}
+.xp{position:absolute;right:0;top:0;font-size:.8rem;font-weight:700;background:var(--card);border:2px solid var(--line);border-radius:99px;padding:1px 10px}
+.sec{background:var(--card);border:3px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:18px;padding:12px 12px 14px;margin-bottom:12px;background-image:linear-gradient(180deg,color-mix(in srgb,var(--c) 8%,var(--card)),var(--card) 60px)}
+.sec h2,.shead{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:1.15rem;font-weight:800}
+.num{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:"Nunito",sans-serif;font-weight:900;font-size:1.15rem;box-shadow:0 2px 0 color-mix(in srgb,var(--c) 60%,#000)}
+.shead{background:var(--c);color:#fff;border-radius:99px;padding:3px 14px 3px 4px;display:inline-flex}
+.shead .num{background:#fff;color:var(--c);box-shadow:none;width:28px;height:28px;font-size:1rem}
+.legend{display:grid;gap:6px}
+.lg{display:flex;align-items:center;gap:8px;border-radius:99px;padding:4px 14px;font-weight:800;font-size:1.05rem}
+.lg b:nth-child(3){font-family:"Nunito",sans-serif;font-size:1.3rem}
+.lg i{margin-left:auto;font-style:normal;font-size:1.3rem}
+.lg.am{background:var(--amF);color:var(--pink)}.lg.is{background:var(--isF);color:var(--blue)}.lg.are{background:var(--areF);color:var(--green)}
+.note{font-size:.84rem;color:var(--sub);margin:8px 0 0}
+.stages{display:grid;gap:10px;margin-bottom:12px}
+.stage{display:flex;align-items:center;gap:10px;text-align:left;background:var(--card);color:var(--ink);border:3px solid color-mix(in srgb,var(--c) 50%,transparent);border-radius:16px;padding:10px 12px;font:inherit;cursor:pointer;box-shadow:0 3px 0 color-mix(in srgb,var(--c) 40%,transparent)}
+.stage:active{transform:translateY(2px);box-shadow:none}
+.st{flex:1;display:flex;flex-direction:column}.st b{font-size:1.05rem}.st small{color:var(--sub);font-size:.8rem;line-height:1.45}
+.sb{font-size:.72rem;font-weight:800;color:var(--c);text-align:center;line-height:1.3}
+.zukan{list-style:none;padding:0;margin:0}.zukan li{display:flex;justify-content:space-between;border-bottom:2px dotted var(--line);padding:6px 2px}.zukan b{color:var(--bug)}
+.top{margin-bottom:6px}.back{border:0;background:none;color:var(--sub);font:inherit;font-weight:700;cursor:pointer;padding:2px 0}
+.prog{display:flex;gap:5px;margin:8px 0 6px}.prog span{flex:1;height:8px;border-radius:4px;background:var(--line)}.prog .done{background:var(--c)}.prog .now{background:color-mix(in srgb,var(--c) 45%,var(--line))}
+.task{font-weight:800;margin:8px 0}
+.q{font-weight:800;font-size:.92rem;margin:10px 0 6px;color:var(--sub)}
+.ja{margin:6px 0 8px;background:#FFF9D6;border-radius:12px;padding:6px 12px;color:#3A3000}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ja{background:#3A3416;color:#FFF3B8}}
+:root[data-theme="dark"] .ja{background:#3A3416;color:#FFF3B8}
+.ja.big{font-size:1.1rem}.big{font-size:1.2rem}
+.stagebox{min-height:72px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:10px 6px;border-radius:14px;background:repeating-linear-gradient(45deg,transparent 0 10px,color-mix(in srgb,var(--c) 5%,transparent) 10px 20px);margin:6px 0}
+/* pieces */
+.pw{display:inline-block;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;line-height:0}
+.pc{overflow:visible;display:block;filter:drop-shadow(0 2px 0 rgba(0,0,0,.18))}
+.pc path{stroke-width:2.5;stroke-linejoin:round}
+.pc text{font-family:"Nunito",sans-serif;font-weight:800;font-size:22px;text-anchor:middle;dominant-baseline:central;fill:var(--ink)}
+.r-s path{fill:var(--sF);stroke:var(--sS)}
+.r-r path{fill:var(--rF);stroke:var(--rS)}
+.r-p path{fill:var(--pF);stroke:var(--pS)}
+.r-not path{fill:var(--nF);stroke:var(--nS)}.r-not text{fill:var(--pink)}
+.r-be path{fill:var(--plainF);stroke:var(--plainS)}
+.b-am path{fill:var(--amF);stroke:var(--pink)}.b-am text{fill:var(--pink)}
+.b-is path{fill:var(--isF);stroke:var(--blue)}.b-is text{fill:var(--blue)}
+.b-are path{fill:var(--areF);stroke:var(--green)}.b-are text{fill:var(--green)}
+.pline{display:flex;flex-wrap:wrap;align-items:center;row-gap:8px}
+.pline .pw.join{margin-left:-15px}
+.pline .pw.gap{margin-left:6px}
+.pline .pw.gap .pc path{stroke-dasharray:5 4}
+.pline.snap{animation:snap .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes snap{0%{transform:scale(.94)}100%{transform:scale(1)}}
+.pc.appear{animation:appear .4s ease-out}
+@keyframes appear{from{transform:translateY(-10px);opacity:0}to{transform:none;opacity:1}}
+.pw.dim{opacity:.35}
+.pw.bugmark .pc{filter:drop-shadow(0 0 0 transparent)}
+.pw.bugmark .pc path{stroke:var(--bug);stroke-width:4;fill:var(--bugbg)}
+.pw.lift{opacity:.25}
+.ghost{position:fixed;z-index:50;pointer-events:none;transform:scale(1.08) rotate(-3deg);filter:drop-shadow(0 8px 10px rgba(0,0,0,.25))}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat{font:inherit;font-weight:800;min-height:60px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 10px}
+.cat .emo{font-size:1.6rem}
+.cat.no{background:var(--bugbg);border-color:var(--bug)}
+.bes{display:flex;flex-wrap:wrap;gap:12px}
+.board{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.slot{position:relative;min-width:74px;min-height:78px;border:3px dashed color-mix(in srgb,var(--c) 45%,var(--line));border-radius:14px;display:flex;align-items:flex-end;justify-content:center;padding:18px 4px 4px;background:color-mix(in srgb,var(--c) 4%,var(--card))}
+.slot small{position:absolute;top:2px;left:8px;font-size:.7rem;font-weight:800;color:var(--sub)}
+.slot.full{border-style:solid;border-color:var(--ok)}
+.slot.front{min-width:66px;min-height:70px}
+.pool{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:14px;background:color-mix(in srgb,var(--c) 7%,var(--card));border:2px solid var(--line);min-height:84px}
+.choices{display:grid;gap:8px}
+.opt{font-family:"Nunito",sans-serif;font-weight:800;font-size:1.2rem;text-align:left;padding:10px 14px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer}
+.opt.no{background:var(--bugbg);border-color:var(--bug)}
+#inp{width:100%;font-family:"Nunito",sans-serif;font-weight:800;font-size:1.3rem;padding:10px 14px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink)}
+#inp:focus{outline:none;border-color:var(--c)}
+.msg{min-height:1.4em;margin:10px 0 4px;border-radius:12px;font-weight:700}
+.msg.bug{background:var(--bugbg);padding:8px 12px;border:2px solid var(--bug)}
+.msg.ok{background:var(--okbg);padding:8px 12px;border:2px solid var(--ok)}
+.msg.info{background:var(--infobg);padding:8px 12px;border:2px solid var(--blue)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.row button{font:inherit;font-weight:800;min-height:48px;padding:8px 20px;border-radius:99px;border:3px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.row button:active{transform:translateY(2px);box-shadow:none}
+button.primary{background:var(--c,var(--pink))!important;border-color:color-mix(in srgb,var(--c,var(--pink)) 70%,#000)!important;color:#fff!important;box-shadow:0 3px 0 color-mix(in srgb,var(--c,var(--pink)) 60%,#000)!important}
+.mission{border:3px solid var(--pink);border-radius:16px;padding:6px 14px;margin:10px 0;background:#FFF1F6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mission{background:#3A1A27}}
+:root[data-theme="dark"] .mission{background:#3A1A27}
+.mission h3{margin:6px 0 2px;color:var(--pink);font-size:1rem}
+button:focus-visible,.pw:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake,.pline.snap,.pc.appear{animation:none}}
+
+.guide{display:flex;align-items:flex-end;gap:6px;margin:10px 0 4px}
+.guide #chara{flex:0 0 84px;line-height:0}
+.guide .bubble{flex:1;position:relative;margin:0 0 18px;background:var(--card);border:2.5px solid var(--line);border-radius:16px;padding:8px 12px;min-height:44px;font-weight:700}
+.guide .bubble::before{content:"";position:absolute;left:-11px;bottom:12px;border:8px solid transparent;border-right:11px solid var(--line);border-left:0}
+.guide .bubble::after{content:"";position:absolute;left:-7px;bottom:13px;border:7px solid transparent;border-right:9px solid var(--card);border-left:0}
+.guide .bubble.bug{background:var(--bugbg);border-color:var(--bug)}.guide .bubble.bug::before{border-right-color:var(--bug)}.guide .bubble.bug::after{border-right-color:var(--bugbg)}
+.guide .bubble.ok{background:var(--okbg);border-color:var(--ok)}.guide .bubble.ok::before{border-right-color:var(--ok)}.guide .bubble.ok::after{border-right-color:var(--okbg)}
+.guide .bubble.info{background:var(--infobg);border-color:var(--blue)}.guide .bubble.info::before{border-right-color:var(--blue)}.guide .bubble.info::after{border-right-color:var(--infobg)}
+.guide.hello{margin:0 0 10px}
+#chara.hop{animation:hop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.kid.think{animation:tilt 1.6s ease-in-out infinite alternate;transform-origin:50% 90%}
+@keyframes tilt{from{transform:rotate(-2deg)}to{transform:rotate(3deg)}}
+.confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60}
+.toggles{display:grid;gap:6px}
+.tg{display:flex;justify-content:space-between;align-items:center;font:inherit;font-weight:700;border:2.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--sub);padding:8px 12px;cursor:pointer}
+.tg b{font-family:"Nunito",sans-serif;font-weight:900;border-radius:99px;padding:0 10px;background:var(--line);color:var(--sub)}
+.tg.on{color:var(--ink);border-color:color-mix(in srgb,var(--c) 55%,var(--line))}.tg.on b{background:var(--c);color:#fff}
+body.nomotion *,body.nomotion *::before{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){#chara.hop,.kid.think{animation:none}}
+
+.guide{display:flex;align-items:flex-end;gap:6px;margin:10px 0 4px}.guide #chara{flex:0 0 84px;line-height:0}
+.guide .bubble{flex:1;position:relative;margin:0 0 18px;background:var(--card);border:2.5px solid var(--line);border-radius:16px;padding:8px 12px;min-height:44px;font-weight:700}
+.guide .bubble.bug{background:var(--bugbg);border-color:var(--bug)}.guide .bubble.ok{background:var(--okbg);border-color:var(--ok)}.guide .bubble.info{background:var(--infobg);border-color:var(--blue)}
+.guide.hello{margin:0 0 10px}#chara.hop{animation:hop .45s cubic-bezier(.3,1.6,.5,1)}@keyframes hop{35%{transform:translateY(-10px)}}
+.kid.think{animation:tilt 1.6s ease-in-out infinite alternate;transform-origin:50% 90%}@keyframes tilt{from{transform:rotate(-2deg)}to{transform:rotate(3deg)}}
+.confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60}
+.toggles{display:grid;gap:6px}.tg{display:flex;justify-content:space-between;align-items:center;font:inherit;font-weight:700;border:2.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--sub);padding:8px 12px;cursor:pointer}.tg b{border-radius:99px;padding:0 10px;background:var(--line)}.tg.on{color:var(--ink)}.tg.on b{background:var(--c);color:#fff}
+body.nomotion *{animation:none!important;transition:none!important}
+.map{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin:6px 0;position:relative}.map .isle:nth-child(odd){margin-top:0}.map .isle:nth-child(even){margin-top:28px}.mapsvg{display:none}
+.isle{position:relative;width:100%;min-height:96px;border:3px solid var(--c);border-radius:22px 22px 26px 18px;background:color-mix(in srgb,var(--c) 12%,var(--card));color:var(--ink);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;padding:6px 6px 8px;box-shadow:0 5px 0 color-mix(in srgb,var(--c) 45%,transparent)}
+.isle .ic{font-size:1.9rem;line-height:1.1}.isle b{font-size:1rem}.isle small{font-size:.72rem;color:var(--sub);font-weight:700}.isle .st{color:#f0b400;font-size:1rem;letter-spacing:2px}
+.kk{margin-left:6px;font-size:.75rem;background:#fff;color:var(--c);border-radius:99px;padding:0 8px}
+.lvl{font-size:.8rem;font-weight:800;color:var(--c);margin:2px 0}
+.prob{background:#FFF9D6;color:#3A3000;border-radius:14px;padding:10px 12px;font-weight:700;line-height:1.7;margin:6px 0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .prob{background:#3A3416;color:#FFF3B8}}
+.prob .hl{background:linear-gradient(transparent 55%,#ffb3c8 55%)}
+.q{font-weight:800;font-size:.95rem;margin:10px 0 6px}
+.note{font-size:.82rem;color:var(--sub);margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-weight:800;min-height:48px;padding:6px 14px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer}
+.chip.no{background:var(--bugbg);border-color:var(--bug)}
+.ans{display:flex;gap:6px;align-items:center}
+#in,#mi{flex:1;min-width:0;font-family:"Nunito",sans-serif;font-weight:800;font-size:1.4rem;padding:8px 12px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink)}
+.unit{font-weight:800}.go{font:inherit;font-weight:800;min-height:48px;padding:6px 18px;border-radius:99px;border:0;background:var(--c);color:#fff;cursor:pointer}
+.log{margin:6px 0;padding-left:1.4em;font-size:.88rem;color:var(--sub)}.log b{color:var(--ink)}
+.eq{background:var(--infobg);border:2px solid var(--blue);border-radius:14px;padding:8px 12px;margin:8px 0;font-weight:700}
+/* timeline */
+.timeline{margin:8px 0;padding:8px;border-radius:14px;background:color-mix(in srgb,var(--c) 6%,var(--card));border:2px solid var(--line)}
+.tlrow{display:flex;align-items:center;gap:6px;margin:8px 0}.tlrow .nm{flex:0 0 34px;font-weight:900}
+.track{position:relative;flex:1;height:40px}
+.bar{position:absolute;top:0;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;cursor:pointer;border:3px solid}
+.bar.be{background:#ffd9e5;border-color:var(--pink)}.bar.bl{background:#d5e9ff;border-color:var(--blue)}
+.bar .qq{color:var(--sub)}.bar .xc{background:#ffe45c;border-radius:8px;padding:0 8px;color:#3a3000}.bar .oc{background:#fff;border-radius:8px;padding:0 6px;font-size:.85rem}
+.gapseg{position:absolute;left:0;top:8px;height:24px;border:2px dashed var(--sub);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--sub)}
+.tlax{display:flex;justify-content:space-between;font-size:.72rem;color:var(--sub);padding-left:40px}
+.xcard{font-family:"Nunito",sans-serif;font-weight:900;font-size:1.3rem;min-width:70px;min-height:52px;border:3px solid #c9a800;border-radius:12px;background:#ffe45c;color:#3a3000;cursor:pointer;box-shadow:0 3px 0 #c9a800}
+.xcard.sel{transform:translateY(-4px) rotate(-3deg)}
+.road2{position:relative;height:60px;margin:8px 4px}.rline{position:absolute;left:0;right:0;top:36px;height:6px;border-radius:3px;background:var(--line)}
+.rh{position:absolute;left:-2px;top:44px;font-size:.75rem;font-weight:800}.rn{position:absolute;transform:translateX(-50%);font-weight:800;font-size:.8rem;color:#fff;border-radius:99px;padding:2px 8px;transition:left .25s}
+.rn.r1{background:var(--pink);top:2px}.rn.r2{background:var(--blue);top:24px}
+.eqpz{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0;font-weight:900}.eqpz .who{font-size:.8rem;color:var(--sub)}.eqpz .op{font-size:1.2rem}
+.slot2{min-width:62px;min-height:46px;border:3px dashed var(--line);border-radius:12px;background:var(--card);color:var(--sub);font:inherit;font-weight:900;cursor:pointer}.slot2.full{border-style:solid;border-color:var(--ok);color:var(--ink);background:var(--okbg)}
+.tile2,.card{font-family:"Nunito","M PLUS Rounded 1c",sans-serif;font-weight:900;font-size:1.1rem;min-width:56px;min-height:48px;padding:4px 12px;border:3px solid var(--ink);border-radius:12px;background:#FFF4C9;color:#3A3000;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.tile2.sel,.card.sel{background:var(--c);color:#fff;border-color:var(--c);transform:translateY(-3px)}
+/* ribbon */
+.ribbon{margin:10px 0}.rbar{display:flex;gap:3px;height:46px}.seg{flex:1;border:3px solid #c9a800;border-radius:8px;background:#fff4c9;font-weight:900;font-size:.75rem;color:var(--ink);cursor:pointer}
+.seg.pa{background:#ffd9e5;border-color:var(--pink)}.seg.pb{background:#d5e9ff;border-color:var(--blue)}
+.rlab{display:flex;justify-content:space-between;font-size:.75rem;font-weight:800;color:var(--sub)}
+.stepper{display:flex;align-items:center;gap:10px}.stepper button:not(.go){width:48px;height:48px;border-radius:50%;border:3px solid var(--ink);background:var(--card);font-size:1.4rem;font-weight:900;cursor:pointer;color:var(--ink)}.stepper b{font-family:"Nunito",sans-serif;font-size:1.6rem;min-width:30px;text-align:center}
+.wtab{border-collapse:separate;border-spacing:4px;width:100%;margin:6px 0}.wtab th{font-size:.8rem;color:var(--sub)}.wtab td{height:50px;border:3px dashed var(--line);border-radius:12px;text-align:center;font-family:"Nunito",sans-serif;font-weight:900;font-size:1.2rem;cursor:pointer;background:var(--card)}.wtab td.full{border-style:solid;border-color:var(--ok);background:var(--okbg)}
+/* pencils */
+.pens{display:grid;grid-template-columns:auto 1fr auto;gap:6px 8px;align-items:center;margin:8px 0}.pl{font-weight:800;font-size:.82rem}.pn{font-family:"Nunito",sans-serif;font-weight:900}
+.pb{display:flex;height:30px;border-radius:8px;overflow:hidden;background:var(--line)}.sg{display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;white-space:nowrap;overflow:hidden;transition:width .25s}
+.sg.a{background:#ffd9e5}.sg.b{background:#d5e9ff}.sg.r{background:#ffe7a8}.sg.m{background:repeating-linear-gradient(45deg,var(--bugbg) 0 5px,transparent 5px 10px);border:2px dashed var(--bug)}
+.kids{font-size:1.2rem;letter-spacing:-2px;min-height:1.6em}.eqm{text-align:center;font-weight:800;color:var(--sub)}.eqm.hit{color:var(--ok)}
+input[type=range]{width:100%;height:44px;accent-color:var(--c)}
+.sheet{border:3px solid var(--ink);border-radius:12px;padding:10px;background:repeating-linear-gradient(#fff 0 30px,#e8eef6 30px 31px);display:grid;gap:8px;margin:6px 0}
+.sh{display:flex;align-items:center;gap:8px;font-weight:900;color:#1d2a4a}.ab{min-width:80px;min-height:46px;border:3px dashed #8a93a6;border-radius:10px;background:#fff;font-family:"Nunito",sans-serif;font-weight:900;font-size:1.2rem;cursor:pointer;color:#1d2a4a}.ab.full{border-style:solid;border-color:var(--ok);background:var(--okbg)}
+.mach{border:2px dashed var(--c);border-radius:12px;padding:6px 10px;margin-top:8px}
+.balsvg{width:100%;max-width:340px;display:block;margin:0 auto}.balsvg g{transition:transform .4s}
+.bigeq{font-family:"Noto Serif CJK JP",serif;font-size:1.5rem;text-align:center;margin:10px 0;font-weight:700}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.15;margin:0 2px}.fr>span:first-child{border-bottom:2px solid currentColor;padding:0 3px}
+.mission{border:3px solid var(--pink);border-radius:16px;padding:6px 14px;margin:10px 0;background:#FFF1F6}.mission h3{margin:6px 0 2px;color:var(--pink)}
+.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.title h1{font-size:1.5rem!important}.title h1 .be{font-size:1.7rem!important}
+.flow4{margin:0;padding-left:1.4em;font-weight:800}.flow4 li{margin:2px 0}
+.stories{display:grid;gap:10px;margin-bottom:10px}
+.story{display:flex;align-items:center;gap:12px;text-align:left;border:3px solid var(--c);border-radius:18px;background:color-mix(in srgb,var(--c) 10%,var(--card));color:var(--ink);font:inherit;padding:12px;cursor:pointer;box-shadow:0 4px 0 color-mix(in srgb,var(--c) 40%,transparent)}
+.story .ic{font-size:2rem}.story .tx{flex:1;display:flex;flex-direction:column}.story b{font-size:1.1rem}.story small{color:var(--sub);font-weight:700}.story .dn{color:var(--ok);font-weight:800;font-size:.8rem}
+.top{display:flex;justify-content:space-between;align-items:center}.cnt{font-size:.8rem;font-weight:800;color:var(--sub)}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:8px 0}.phases span{font-size:.66rem;font-weight:800;text-align:center;padding:4px 2px;border-radius:8px;background:var(--line);color:var(--sub);line-height:1.3}
+.phases span.done{background:color-mix(in srgb,var(--c) 30%,var(--card));color:var(--ink)}.phases span.now{background:var(--c);color:#fff}
+.anim{border:2px solid var(--line);border-radius:14px;background:#fbfdff;padding:4px}.asvg{width:100%;display:block}
+.cap{background:#fff8d6;border-radius:12px;padding:8px 10px;font-weight:700;min-height:1.5em;color:#3a3000}
+.tb{width:100%;border-collapse:collapse;margin:6px 0}.tb th,.tb td{border:2px solid var(--line);padding:6px;text-align:center;font-weight:800}.tb th{background:color-mix(in srgb,var(--c) 10%,var(--card));font-size:.8rem}.tb td{font-family:"Nunito","M PLUS Rounded 1c",sans-serif;font-size:1.05rem}.tb td.q0{color:var(--sub)}
+.rulebox{background:color-mix(in srgb,var(--c) 10%,var(--card));border:2px dashed var(--c);border-radius:12px;padding:8px 10px;font-weight:700;font-size:.9rem;margin:6px 0}
+.nb{border:2px solid var(--line);border-radius:12px;padding:4px 10px;background:repeating-linear-gradient(var(--card) 0 43px,var(--line) 43px 45px)}
+.nl{display:flex;align-items:center;min-height:45px}.nl .m{flex:1;font-family:"Noto Serif CJK JP",serif;font-size:1.2rem}.nl .memo{flex:0 0 34%;border-left:2px dashed var(--pink);padding-left:8px;color:var(--pink);font-size:.8rem;font-weight:800}.nl.ghost .m{color:var(--sub)}
+.choices{display:grid;gap:8px}.lineopt{font:inherit;text-align:left;padding:10px 12px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer}.lineopt .m{font-family:"Noto Serif CJK JP",serif;font-size:1.15rem}.lineopt.no{background:var(--bugbg);border-color:var(--bug)}
+.chip.op{font-size:.95rem}
+.tchk{border:2px solid var(--line);border-radius:12px;padding:8px 10px}.orig{font-family:"Noto Serif CJK JP",serif;font-size:1.15rem;margin:4px 0}
+.tbox{display:grid;grid-template-columns:1fr 1fr;border-top:4px solid var(--ink)}.tbox>div{padding:6px}.tbox>div:first-child{border-right:4px solid var(--ink)}.tbox b{font-size:.8rem;color:var(--sub)}.tbox p{margin:4px 0;font-family:"Noto Serif CJK JP",serif;font-weight:700}
+.sheet{margin-top:8px}.sheetq{margin:0 0 4px;font-weight:900;color:#1d2a4a}.ab{display:inline-block;min-width:70px;text-align:center}
+
+.story.rules{margin-bottom:10px}
+.goodex{background:#f2fbf5;border:2px solid #9fd3b2;border-radius:14px;padding:8px}
+.grow{display:flex}.gc{flex:0 0 auto;width:20px;height:22px;border:1px solid #b9cbe0;margin:0 -1px -1px 0;display:flex;align-items:center;justify-content:center;font-family:"Noto Serif CJK JP",serif;font-size:14px;background:#fff;color:#1d2a4a}
+.gc i{font-family:"Times New Roman",serif}.mn{display:inline-block;transform:scaleX(1.5);font-weight:700}
+.gline{display:flex;align-items:center}.gmemo{margin-left:6px;font-size:.72rem;color:var(--pink);font-weight:800;border-left:2px dashed var(--pink);padding-left:4px;min-height:20px;white-space:nowrap}
+.mini-h{margin:6px 0 2px;font-size:.78rem;font-weight:800}
+.gt{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid var(--ink)}.gt>div{overflow:hidden}.gt>div:first-child{border-right:3px solid var(--ink)}.gt b{font-size:.7rem;display:block;text-align:center}
+.gans{font-weight:800}.gans b{display:inline-block;min-width:32px;border:2px solid #1d2a4a;text-align:center;background:#fff;color:#1d2a4a}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.pan{border:3px solid var(--line);border-radius:14px;background:var(--card);padding:10px 6px;min-height:120px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);font:inherit}
+.pan.good{border-color:var(--ok);background:var(--okbg)}.pan.bad{opacity:.5;border-color:var(--bug);background:var(--bugbg)}
+.mg{display:flex;flex-direction:column;align-items:center;gap:0}.mg .gc{width:30px;height:32px;font-size:20px}.mg.eqline .gc:nth-child(4){background:#eafbe9;border-color:#2e9e4f}
+.cram .gc:first-child{font-size:20px;letter-spacing:-3px;overflow:visible}
+.eqm{position:relative}.eqm small{position:absolute;right:-3px;top:2px;font-size:10px}
+.mg.txt{font-family:"Noto Serif CJK JP",serif;font-size:15px;line-height:1.9;color:#1d2a4a}.mg.txt.big{font-size:24px}
+.tiny{font-size:.7rem;color:var(--bug);margin:2px 0 0;font-family:"M PLUS Rounded 1c",sans-serif}
+.tag{display:inline-block;border:1.5px solid var(--pink);color:var(--pink);border-radius:6px;font-size:.7rem;padding:0 4px;font-family:"M PLUS Rounded 1c",sans-serif}
+.bx{display:inline-block;min-width:26px;height:24px;border:2px solid #1d2a4a;vertical-align:middle;text-align:center;line-height:20px;background:#fff}
+.badwrap{border:2px solid var(--bug);border-radius:14px;background:#fff;padding:4px}.badsvg{width:100%;display:block}
+.badsvg .hot{fill:transparent;cursor:pointer}.badsvg .hot.hit{fill:rgba(229,72,91,.12);stroke:#e5485b;stroke-width:2}
+.cnt2{text-align:center;font-weight:900}.cnt2 b{color:var(--bug);font-size:1.3rem}
+.foundl{margin:4px 0;padding-left:0;list-style:none;font-size:.85rem;font-weight:700}.foundl li{margin:2px 0}
+.sixchk{margin-top:8px;border:2px solid var(--ink);border-radius:12px;padding:6px 12px}.sixchk ol{margin:4px 0;padding-left:1.4em;font-weight:700}
+.howto{background:#fff8d6;border:2px dashed #f0b400;border-radius:12px;padding:8px 10px;font-weight:800;text-align:center;line-height:1.6;color:#3a3000}.howto .o{color:#2e9e4f;font-size:1.3rem}.howto .x{color:#e5485b;font-size:1.3rem}
+.one{border:3px solid var(--line);border-radius:14px;background:var(--card);min-height:110px;display:flex;align-items:center;justify-content:center;padding:10px;margin:8px 0}.one.okv{border-color:var(--ok);background:var(--okbg);min-height:80px}
+.oxbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}.oxb{font:inherit;font-size:2.6rem;font-weight:900;line-height:1;padding:10px 4px;border-radius:18px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;border:4px solid}.oxb small{font-size:.8rem}
+.oxb.ob{color:#2e9e4f;border-color:#2e9e4f;background:#eefaf2;box-shadow:0 4px 0 #2e9e4f}.oxb.xb{color:#e5485b;border-color:#e5485b;background:#fff0f1;box-shadow:0 4px 0 #e5485b}
+.oxb.good{transform:translateY(3px);box-shadow:none;outline:4px solid #ffd33d}.oxb:disabled{cursor:default}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dayb{font:inherit;border:3px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);padding:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center}.dayb b{font-size:1.4rem;font-family:"Nunito",sans-serif}.dayb span{font-weight:800;font-size:.9rem}
+.dayb.on{border-color:var(--c);background:var(--c);color:#fff;box-shadow:0 4px 0 color-mix(in srgb,var(--c) 60%,#000)}
+.dayp{margin:8px 0 0;font-weight:700;font-size:.9rem}.mission.day1{border-color:#1e7fd6;background:#eef5ff}.mission.day1 h3{color:#1e7fd6}
+</style></head><body><div class="wrap">
+<header><div class="title"><h1><span class="be">文章題</span><span class="hl">シアター</span></h1></div><div><span class="pill">アニメで場面を見て → ルールどおりに式を書く</span></div><span class="xp">XP <b id="xp">0</b></span></header>
+<main id="app"></main></div>
+<script>const R=n=>Math.floor(Math.random()*n);
+// ===== math helpers =====
+const MN='−';
+const RR=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const nz=(a,b)=>{let v=0;while(v===0)v=RR(a,b);return v};
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function fr(n,d){if(d<0){n=-n;d=-d}const g=gcd(n,d);return {n:n/g,d:d/g}}
+const feq=(a,b)=>a.n===b.n&&a.d===b.d;
+function num(n){return n<0?MN+Math.abs(n):''+n}
+const X='<i>x</i>';
+function tX(c,first){if(c===0)return '';const a=Math.abs(c),b=(a===1?'':a)+X;if(first)return (c<0?MN:'')+b;return (c<0?' '+MN+' ':' + ')+b}
+function tC(c,first){if(first)return num(c);return (c<0?' '+MN+' ':' + ')+Math.abs(c)}
+// side from items [{c,x}] skipping zeros
+function side(items){let s='',first=true;for(const it of items){if(it.c===0)continue;s+=it.x?tX(it.c,first):tC(it.c,first);first=false}return first?'0':s}
+const lin=(a,b)=>side([{c:a,x:1},{c:b,x:0}]);
+const EQ=(l,r)=>l+' = '+r;
+function frH(f){if(f.d===1)return num(f.n);return (f.n<0?MN:'')+`<span class="fr"><span>${Math.abs(f.n)}</span><span>${f.d}</span></span>`}
+function frBox(top,bot){return `<span class="fr"><span>${top}</span><span>${bot}</span></span>`}
+function decStr(n,k){const neg=n<0;n=Math.abs(n);const ip=Math.floor(n/k),fp=n%k;let s=''+ip;if(fp){const d=k===10?1:2;s+='.'+String(fp).padStart(d,'0').replace(/0+$/,'')}return (neg?MN:'')+s}
+function dX(n,k,first){const a=Math.abs(n);const body=(a===k?'':decStr(a,k))+X;if(first)return (n<0?MN:'')+body;return (n<0?' '+MN+' ':' + ')+body}
+function dC(n,k,first){if(first)return decStr(n,k);return (n<0?' '+MN+' ':' + ')+decStr(Math.abs(n),k)}
+const dlin=(a,b,k)=>dX(a,k,true)+dC(b,k,false);
+const uniqBy=(arr,f)=>{const s=new Set();return arr.filter(o=>{const k=f(o);if(s.has(k))return false;s.add(k);return true})};
+
+// ===== common tail: Ax+B=Cx+D =====
+function tail(A,B,C,D,bug){
+  const C2=bug==='tx'?C:-C, B2=bug==='tc'?B:-B;
+  const T=EQ(side([{c:A,x:1},{c:C2,x:1}]),side([{c:D,x:0},{c:B2,x:0}]));
+  const k=A+C2, r=D+B2;
+  const S=EQ(k===0?'0':tX(k,true),num(r));
+  let val=k===0?null:fr(r,k);
+  if(bug==='sign'&&val)val=fr(-val.n,val.d);
+  const F=val?EQ(X,frH(val)):null;
+  return {T,S,F,k,r,val};
+}
+function tailSteps(A,B,C,D){
+  const t=tail(A,B,C,D), tx=tail(A,B,C,D,'tx'), tc=tail(A,B,C,D,'tc');
+  const steps=[];
+  steps.push({op:'移項',ops:['移項','まとめる',`両辺を${num(t.k)}でわる`],line:t.T,
+    bugs:[{html:tx.T,name:'移項で x の項の符号を変え忘れ'},{html:tc.T,name:'移項で数の項の符号を変え忘れ'}]});
+  const sb=[{html:EQ(tX(t.k,true),num(-t.r)),name:'計算で右辺の符号ミス'}];
+  if(A+C!==0&&A+C!==t.k)sb.push({html:EQ(tX(A+C,true),num(t.r)),name:'x の係数の計算ミス'});
+  steps.push({op:'まとめる',ops:['まとめる','移項','かっこをはずす'],line:t.S,bugs:sb});
+  if(t.k!==1){
+    const fb=[{html:EQ(X,frH(fr(-t.val.n,t.val.d))),name:'答えの符号が消えた'}];
+    const rec=fr(t.k,t.r);if(!feq(rec,t.val)&&t.r!==0)fb.push({html:EQ(X,frH(rec)),name:'わる数とわられる数が逆'});
+    steps.push({op:`両辺を${num(t.k)}でわる`,ops:shuffle([`両辺を${num(t.k)}でわる`,`両辺を${num(-t.k)}でわる`,`両辺に${num(t.k)}をかける`]),line:t.F,bugs:fb});
+  }
+  return steps;
+}
+
+"use strict";
+const $=s=>document.querySelector(s);
+const shuf=shuffle;
+const store={get(){try{return JSON.parse(localStorage.getItem('storytheater')||'{}')}catch(e){return{}}},set(o){try{localStorage.setItem('storytheater',JSON.stringify(o))}catch(e){}}};
+const S=Object.assign({xp:0,done:{},day:1},store.get());
+const save=()=>store.set(S);
+// ---------- settings / sfx / confetti / character ----------
+S.opt=Object.assign({sfx:true,motion:true,voice:true},S.opt||{});
+function applyOpt(){document.body.classList.toggle('nomotion',!S.opt.motion)}
+let AC=null;
+function ac(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
+document.addEventListener('pointerdown',()=>{if(S.opt.sfx)ac()},{once:true});
+function tone(f,t0,dur,type,vol,f2){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type=type||'triangle';o.frequency.setValueAtTime(f,a.currentTime+t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,a.currentTime+t0+dur);
+  g.gain.setValueAtTime(0.0001,a.currentTime+t0);g.gain.exponentialRampToValueAtTime(vol||.18,a.currentTime+t0+.008);g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+t0+dur);o.connect(g).connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+dur+.02)}
+function sfx(k){if(!S.opt.sfx)return;try{
+  if(k==='snap'){tone(1400,0,.05,'square',.08,700);tone(900,.045,.06,'triangle',.14,1300)}
+  else if(k==='ok'){tone(784,0,.12,'triangle',.16);tone(1175,.1,.18,'triangle',.16)}
+  else if(k==='bad'){tone(220,0,.18,'sawtooth',.07,160)}
+  else if(k==='clear'){[523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.22,'triangle',.16));tone(1568,.46,.35,'sine',.1)}
+}catch(e){}}
+function confetti(big){
+  if(!S.opt.motion||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const c=document.createElement('canvas');c.className='confetti';document.body.appendChild(c);
+  const dpr=Math.min(2,window.devicePixelRatio||1);c.width=innerWidth*dpr;c.height=innerHeight*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);
+  const cols=['#E8336D','#1E7FD6','#2E9E4F','#FFD33D','#F08C1A','#8A4FD1'];const N=big?140:40;
+  const ps=Array.from({length:N},()=>({x:innerWidth*(big?Math.random():.5+(Math.random()-.5)*.4),y:big?-20-Math.random()*innerHeight*.3:innerHeight*.45,vx:(Math.random()-.5)*(big?3:7),vy:big?2+Math.random()*3:-4-Math.random()*5,r:4+Math.random()*5,a:Math.random()*6,va:(Math.random()-.5)*.3,c:cols[R(cols.length)],sq:Math.random()<.5}));
+  const t0=performance.now();
+  (function f(t){const el=t-t0;x.clearRect(0,0,innerWidth,innerHeight);
+    ps.forEach(p=>{p.vy+=.12;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.globalAlpha=Math.max(0,1-el/(big?2600:1300));
+      if(p.sq)x.fillRect(-p.r,-p.r/2,p.r*2,p.r);else{x.beginPath();x.arc(0,0,p.r/1.6,0,7);x.fill()}x.restore()});
+    if(el<(big?2600:1300))requestAnimationFrame(f);else c.remove()})(t0);
+}
+function chara(mood){
+  const eyes={normal:'<ellipse cx="42" cy="50" rx="3.4" ry="4.4" fill="#1D2A4A"/><ellipse cx="58" cy="50" rx="3.4" ry="4.4" fill="#1D2A4A"/><circle cx="43.2" cy="48.4" r="1.2" fill="#fff"/><circle cx="59.2" cy="48.4" r="1.2" fill="#fff"/>',
+    happy:'<path d="M37 51 Q42 45 47 51" stroke="#1D2A4A" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M53 51 Q58 45 63 51" stroke="#1D2A4A" stroke-width="2.6" fill="none" stroke-linecap="round"/>',
+    think:'<ellipse cx="43" cy="49" rx="3" ry="3.8" fill="#1D2A4A"/><ellipse cx="59" cy="49" rx="3" ry="3.8" fill="#1D2A4A"/><circle cx="44" cy="47.6" r="1" fill="#fff"/><circle cx="60" cy="47.6" r="1" fill="#fff"/><path d="M37 42 L46 44" stroke="#5B3A1E" stroke-width="2.2" stroke-linecap="round"/><path d="M63 42 L54 44" stroke="#5B3A1E" stroke-width="2.2" stroke-linecap="round"/>'}[mood];
+  const mouth={normal:'<path d="M44 60 Q50 65 56 60" stroke="#1D2A4A" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+    happy:'<path d="M42 58 Q50 70 58 58 Z" fill="#C8324F"/><path d="M45 61 Q50 64 55 61" fill="#FF8FA8"/>',
+    think:'<ellipse cx="51" cy="62" rx="3" ry="2.4" fill="#1D2A4A"/>'}[mood];
+  const extra=mood==='think'?'<path d="M72 34 q4 6 0 9 q-4 -3 0 -9z" fill="#7CC6FF"/><circle cx="74" cy="70" r="7.5" fill="#FFD9B8" stroke="#E0A67E" stroke-width="1.5"/>':
+    mood==='happy'?'<path d="M14 30 l3 -7 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3z" fill="#FFD33D"/><path d="M84 22 l2 -5 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2z" fill="#FFD33D"/>':'';
+  return `<svg viewBox="0 0 100 110" width="84" height="92" class="kid ${mood}" aria-hidden="true">
+  <path d="M22 110 Q22 82 50 80 Q78 82 78 110 Z" fill="#2F7FD6"/><path d="M40 82 L50 94 L60 82" fill="none" stroke="#1D5FA8" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="44" y="72" width="12" height="10" fill="#FFD9B8"/>
+  <circle cx="50" cy="50" r="25" fill="#FFE3C9" stroke="#E7B592" stroke-width="1.5"/>
+  <ellipse cx="25.5" cy="53" rx="4" ry="6" fill="#FFD9B8"/><ellipse cx="74.5" cy="53" rx="4" ry="6" fill="#FFD9B8"/>
+  <path d="M24 46 Q22 20 46 20 Q70 16 77 40 Q72 34 64 33 Q66 38 62 40 Q58 32 50 32 Q48 38 42 38 Q42 33 38 32 Q30 36 26 48 Z" fill="#6B4226"/>
+  <ellipse cx="36" cy="58" rx="4.5" ry="2.6" fill="#FFB3B8" opacity=".75"/><ellipse cx="64" cy="58" rx="4.5" ry="2.6" fill="#FFB3B8" opacity=".75"/>
+  ${eyes}${mouth}${extra}</svg>`;
+}
+
+const TALK=['アニメを思い出そう。','ルールどおり、1行に1つ。','あわてずに、1つずつ。'];
+function setMsg(t,k){const m=$('#msg');if(!m)return;if(!t){t=pick(TALK);k=''}m.innerHTML=t;m.className='msg bubble '+(k||'');const c=$('#chara');if(c){c.innerHTML=chara(k==='ok'?'happy':k==='bug'?'think':'normal');c.classList.remove('hop');void c.offsetWidth;c.classList.add('hop')}if(k==='bug')sfx('bad')}
+const STORIES=[
+ {id:'chase',t:'追いつく問題',icon:'🏃',c:'#1E7FD6',key:'🔑1 x は何？',paper:'ミッション2（追いつく）',pg:5},
+ {id:'ratio',t:'リボンを分ける問題',icon:'🎀',c:'#E8336D',key:'🔑2 表をつくる',paper:'ミッション3（比）',pg:6},
+ {id:'kabu',t:'鉛筆を配る問題',icon:'✏️',c:'#8A4FD1',key:'🔑3 答えを全部うめる',paper:'ミッション1（過不足）',pg:4}];
+const PHASES=['① アニメで見る','② 表を書く','③ 式をルールで解く','④ 検算と答え'];
+let cur=null;
+function home(){cur=null;
+  $('#app').innerHTML=`<div class="guide hello"><div id="chara">${chara('happy')}</div><div class="msg bubble">まずアニメで場面を見る。<br>それから、いつものルールで式を書こう。</div></div>
+  <section class="sec" style="--c:#1E7FD6"><h2><span class="num">📅</span>今日はどっち？</h2><div class="days"><button class="dayb ${S.day===1?'on':''}" data-d="1"><b>Day1</b><span>ゲームだけ</span></button><button class="dayb ${S.day===2?'on':''}" data-d="2"><b>Day2</b><span>ゲーム＋紙</span></button></div>
+  <p class="dayp">${S.day===1?'📏 書き方の見本 → 🏃 → 🎀 → ✏️（各2問）。<b>紙はまだやらない。</b>':'📏 書き方の見本 → 🏃 → 🎀 → ✏️（各1問）。<b>1つ終わるごとに、すぐ紙のミッション。</b>'}</p></section>
+  <section class="sec" style="--c:#F08C1A"><h2><span class="num">★</span>1問は、いつもこの4ステップ</h2><ol class="flow4">${PHASES.map(p=>`<li>${p}</li>`).join('')}</ol></section>
+  <button class="story rules" style="--c:#2E9E4F" id="rulesBtn"><span class="ic">📏</span><span class="tx"><b>書き方の見本（最初にやろう）</b><small>○✕クイズとバグさがしで、6つのルールをおぼえる</small></span><span class="dn">${S.done.rules?'✓ '+S.done.rules+'回':''}</span></button>
+  <div class="stories">${STORIES.map(s=>`<button class="story" style="--c:${s.c}" data-id="${s.id}"><span class="ic">${s.icon}</span><span class="tx"><b>${s.t}</b><small>${s.key}</small></span><span class="dn">${S.done[s.id]?'✓ '+S.done[s.id]+'回':''}</span></button>`).join('')}</div>
+  
+  <section class="sec" style="--c:#15998A"><h2><span class="num">⚙</span>せってい</h2><div class="toggles">${[['sfx','効果音'],['motion','動き・紙ふぶき']].map(([k,l])=>`<button class="tg ${S.opt[k]?'on':''}" data-o="${k}">${l}<b>${S.opt[k]?'ON':'OFF'}</b></button>`).join('')}</div></section>`;
+  document.querySelectorAll('.story[data-id]').forEach(b=>b.onclick=()=>start(b.dataset.id));
+  $('#rulesBtn').onclick=rulesGame;
+  document.querySelectorAll('.dayb').forEach(b=>b.onclick=()=>{S.day=+b.dataset.d;save();home()});
+  document.querySelectorAll('.tg').forEach(b=>b.onclick=()=>{const k=b.dataset.o;S.opt[k]=!S.opt[k];save();applyOpt();home()});
+}
+function start(id){cur={s:STORIES.find(x=>x.id===id),i:S.day===2?1:0,clean:0};runProblem()}
+function shell(ph){const s=cur.s;
+  $('#app').innerHTML=`<section class="sec play" style="--c:${s.c}"><div class="top"><button class="back" id="back">← もどる</button><span class="cnt">${S.day===2?'紙と同じ形':(cur.i+1)+' / 2 問目'}</span></div>
+  <h2 class="shead"><span class="num">${s.icon}</span>${s.t}</h2>
+  <div class="phases">${PHASES.map((p,i)=>`<span class="${i<ph?'done':i===ph?'now':''}">${p}</span>`).join('')}</div>
+  <div class="prob" id="prob">${cur.p.text}</div><div id="stage"></div>
+  <div class="guide"><div id="chara">${chara('normal')}</div><div id="msg" class="msg bubble">${pick(TALK)}</div></div><div class="row" id="acts"></div></section>`;
+  $('#back').onclick=home;}
+function runProblem(){const id=cur.s.id;const lv=cur.i;cur.first=true;
+  cur.p=({chase:genChase,ratio:genRatio,kabu:genKabu})[id](lv);
+  phaseAnim();}
+const fail=()=>{cur.first=false};
+// ---------- phase 1: animation ----------
+function phaseAnim(){shell(0);
+  $('#stage').innerHTML=`<div class="anim" id="anim"></div><p class="cap" id="cap"></p>`;
+  $('#acts').innerHTML=`<button id="replay">▶ もう一度見る</button><button class="primary" id="go2" disabled>② 表を書く →</button>`;
+  const play=()=>{$('#go2').disabled=true;cur.p.anim($('#anim'),$('#cap'),()=>{$('#go2').disabled=false;sfx('snap')})};
+  $('#replay').onclick=play;$('#go2').onclick=phaseTable;play();
+  setMsg(cur.p.animTalk,'info');}
+// ---------- phase 2: table ----------
+function phaseTable(){shell(1);
+  $('#stage').innerHTML=`<div id="tbl"></div><div id="step"></div>`;
+  const steps=cur.p.table();let i=0;
+  const go=()=>{if(i>=steps.length){$('#acts').innerHTML=`<button class="primary" id="go3">③ 式をルールで解く →</button>`;$('#go3').onclick=phaseSolve;return}steps[i++](go)};
+  go();}
+function chipStep(q,opts,ans,hint,ok,after){return nx=>{const o=shuf(opts.map((t,k)=>({t,k})));
+  $('#step').innerHTML=`<p class="q">${q}</p><div class="chips">${o.map(x=>`<button class="chip" data-k="${x.k}">${x.t}</button>`).join('')}</div>`;
+  document.querySelectorAll('#step .chip').forEach(b=>b.onclick=()=>{if(+b.dataset.k===ans){sfx('snap');setMsg(ok||'そのとおり！','info');if(after)after();nx()}else{fail();b.classList.add('no','shake');setMsg(typeof hint==='function'?hint(+b.dataset.k):hint,'bug')}})}}
+function numStep(q,ans,unit,hint,hintFn,after){return nx=>{
+  $('#step').innerHTML=`<p class="q">${q}</p><div class="ans"><input id="in" inputmode="numeric" autocomplete="off" placeholder="数を入れる"><span class="unit">${unit||''}</span><button class="go" id="go">OK</button></div>`;
+  const inp=$('#in');const f=()=>{const raw=inp.value.replace(/[−ー－]/g,'-').replace(/[^0-9.\-]/g,'');if(raw==='')return;const v=Number(raw);
+    if(v===ans){sfx('snap');setMsg('正解！','info');if(after)after();nx()}else{fail();setMsg((hintFn&&hintFn(v))||hint,'bug')}};
+  $('#go').onclick=f;inp.onkeydown=e=>{if(e.key==='Enter')f()}}}
+// ---------- phase 3: solve by rules ----------
+function phaseSolve(){shell(2);const p=cur.p;
+  $('#stage').innerHTML=`<div class="rulebox">📏 ルール：1行に1つの操作。何をしたかを右はしの<b>メモ</b>に書く。</div><div class="nb" id="nb"></div><div id="step"></div>`;
+  const lines=[{h:p.eq0,op:''}];let si=0,phase='op';
+  const draw=()=>{$('#nb').innerHTML=lines.map(l=>`<div class="nl"><span class="m">${l.h}</span><span class="memo">${l.op}</span></div>`).join('')+(si<p.steps.length?'<div class="nl ghost"><span class="m">…</span><span class="memo">？</span></div>':'')};
+  const ask=()=>{draw();if(si>=p.steps.length){$('#step').innerHTML='';$('#acts').innerHTML=`<button class="primary" id="go4">④ 検算と答え →</button>`;$('#go4').onclick=phaseCheck;setMsg('ルールどおりに解けた！','ok');return}
+    const st=p.steps[si];
+    if(phase==='op'){const ops=shuf(st.ops);$('#step').innerHTML=`<p class="q">次の操作（メモに書くこと）は？</p><div class="chips">${ops.map(o=>`<button class="chip op">${o}</button>`).join('')}</div>`;
+      document.querySelectorAll('#step .op').forEach(b=>b.onclick=()=>{if(b.textContent===st.op){sfx('snap');phase='line';ask()}else{fail();b.classList.add('no','shake');setMsg(opHint(st.op),'bug')}});}
+    else{const ch=shuf([{h:st.line,ok:1}].concat(st.bugs));$('#step').innerHTML=`<p class="q">「${st.op}」をした次の行は？</p><div class="choices">${ch.map((c,k)=>`<button class="lineopt" data-k="${k}"><span class="m">${c.h||c.html}</span></button>`).join('')}</div>`;
+      document.querySelectorAll('.lineopt').forEach(b=>b.onclick=()=>{const c=ch[+b.dataset.k];if(c.ok){sfx('snap');lines.push({h:st.line,op:st.op});si++;phase='op';setMsg('','');ask()}else{fail();b.classList.add('no','shake');b.disabled=true;setMsg(`バグ：${c.name}`,'bug')}});}};
+  ask();}
+function opHint(op){if(op==='かっこをはずす')return 'まず、かっこをはずす。かっこの外の数は、中の全部に掛ける。';if(op==='外側の積＝内側の積')return '比例式は、まず外側の積＝内側の積。';if(op==='移項')return 'x を左に、数を右に集めるのが先。';if(op==='まとめる')return '左辺・右辺をそれぞれ1つにまとめる。';return 'x の前の数（マイナスもふくめて）でわる。'}
+// ---------- phase 4: check & answer ----------
+function phaseCheck(){shell(3);const p=cur.p;
+  $('#stage').innerHTML=`<div class="tchk"><p class="q">検：${X}＝（${p.x}）を<b>元の式</b>に入れる</p><p class="m orig">${p.eq0}</p><div class="tbox"><div><b>${p.chk.ln}</b><p class="m">${p.chk.ls}</p><p id="lv">＝ ？</p></div><div><b>${p.chk.rn}</b><p class="m">${p.chk.rs}</p><p id="rv">＝ ？</p></div></div></div><div id="ansheet"></div><div id="step"></div>`;
+  const steps=[numStep(`${p.chk.ln}の値は？`,p.chk.L,'',`${p.chk.ls} を計算しよう。答えは（　）ごと入れる。`,null,()=>{$('#lv').textContent='＝ '+p.chk.L}),
+    numStep(`${p.chk.rn}の値は？`,p.chk.R,'',`${p.chk.rs} を計算しよう。`,null,()=>{$('#rv').textContent='＝ '+p.chk.R;setMsg(`${p.chk.L} と ${p.chk.R}。同じ！ 検算OK`,'info')})];
+  $('#ansheet').innerHTML=`<div class="sheet"><p class="sheetq">🔑 答えの欄</p>${p.answers.map((a,i)=>`<div class="sh"><span>${a.pre}</span><b class="ab" id="ab${i}">？</b><span>${a.unit}</span></div>`).join('')}</div>`;
+  p.answers.forEach((a,i)=>steps.push(numStep(`答えの欄：${a.pre}（${a.unit}）は？`,a.v,a.unit,a.hint,a.hintFn,()=>{const el=$('#ab'+i);el.textContent=a.v;el.classList.add('full')})));
+  let i=0;const go=()=>{if(i>=steps.length)return finishProblem();steps[i++](go)};go();}
+function finishProblem(){S.xp+=cur.first?10:4;save();$('#xp').textContent=S.xp;sfx('ok');if(cur.first){cur.clean++;confetti(false)}
+  setMsg(cur.first?'ノーミス！ 場面 → 表 → 式 → 検算 → 答え、全部できた！':'全部できた！ 場面 → 表 → 式 → 検算 → 答え。','ok');
+  cur.i++;$('#step').innerHTML='';
+  if(cur.i<2){$('#acts').innerHTML='<button class="primary" id="nx">次の問題（紙と同じ形）→</button>';$('#nx').onclick=runProblem}
+  else{$('#acts').innerHTML='<button class="primary" id="nx">クリア！</button>';$('#nx').onclick=finishStory}}
+function finishStory(){const s=cur.s;S.done[s.id]=(S.done[s.id]||0)+1;save();const total=S.day===2?1:2;
+  const paper=S.day===2?`<div class="mission"><h3>✏️ 今すぐ紙のミッション</h3><p>「数学テスト 結果レポート」の <b>${s.pg}ページ目　${s.paper}</b>。</p><p class="note">ゲームと同じ順番：① 場面を思い出す（図をかいてもOK）② 表を自分で書く ③ 1行1操作でメモ ④ 検算と答えの欄。終わったら、ページ下のチェックに印。</p></div>`
+    :`<div class="mission day1"><h3>📅 Day1 はゲームだけ</h3><p>紙のミッションは <b>Day2</b> でやるよ。今日は、場面と式の書き方をゲームでしっかり覚えよう。</p></div>`;
+  $('#app').innerHTML=`<section class="sec" style="--c:${s.c}"><h2 class="shead"><span class="num">${s.icon}</span>${s.t} クリア！</h2>
+  <div class="guide"><div id="chara">${chara('happy')}</div><div class="msg bubble ok">ノーミス ${cur.clean} / ${total}</div></div>${paper}
+  <div class="row"><button class="primary" id="hm">メニューへ</button><button id="again">もう1回</button></div></section>`;
+  $('#hm').onclick=home;$('#again').onclick=()=>start(s.id);sfx('clear');confetti(true)}
+// ================= stories =================
+const sleep=ms=>new Promise(r=>setTimeout(r,S.opt.motion?ms:0));
+function tween(dur,fn){return new Promise(res=>{if(!S.opt.motion){fn(1);return res()}const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/dur);fn(k);if(k<1)requestAnimationFrame(f);else res()};requestAnimationFrame(f)})}
+// ---- chase ----
+const PAIRS=[['弟','兄'],['妹','姉'],['姉','妹'],['兄','弟']];
+function genChase(lv){const V1=[50,60,70,80],V2=[90,100,110,120,150],Ts=[3,4,5,6,8];let p;
+  for(;;){const [e,l]=pick(PAIRS),v1=pick(V1),v2=pick(V2),t=pick(Ts);if(v2<=v1)continue;const n=v1*t,d=v2-v1;if(n%d)continue;const xl=n/d;if(xl<2||xl>12)continue;p={e,l,v1,v2,t,xl,x:xl+t,D:v2*xl};break}
+  const {e,l,v1,v2,t}=p;
+  p.text=`${e}が家を出発してから ${t} 分後に、${l}が同じ道を追いかけました。${e}は分速 ${v1} m、${l}は分速 ${v2} m で進みます。<b class="hl">${e}が家を出発してから ${X} 分後</b>に${l}が追いつくとして、${X} を求めなさい。`;
+  p.animTalk=`${e}が先に出発。${t} 分後に${l}が追いかける。よく見ていてね。`;
+  p.anim=async(box,cap,done)=>{const W=340,H=170,road=96,goal=290;
+    box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" class="asvg"><text x="12" y="${road+28}" font-size="22">🏠</text><line x1="40" y1="${road}" x2="330" y2="${road}" stroke="#c5d2e2" stroke-width="8" stroke-linecap="round"/>
+     <g id="pe"><circle r="13" fill="#e8336d"/><text y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">${e}</text></g>
+     <g id="pl" opacity=".35"><circle r="13" fill="#1e7fd6"/><text y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">${l}</text></g>
+     <text id="clk" x="${W/2}" y="22" text-anchor="middle" font-size="15" font-weight="900" fill="#1d2a4a"></text>
+     <rect id="be" x="40" y="${road+22}" height="14" rx="5" width="0" fill="#ffd9e5" stroke="#e8336d" stroke-width="2"/><text id="bet" x="44" y="${road+33}" font-size="10" font-weight="900" fill="#1d2a4a"></text>
+     <rect id="bl" y="${road+42}" height="14" rx="5" width="0" fill="#d5e9ff" stroke="#1e7fd6" stroke-width="2"/><text id="blt" y="${road+53}" font-size="10" font-weight="900" fill="#1d2a4a"></text>
+     <g id="gap" opacity="0"><rect x="40" y="${road+42}" height="14" rx="5" fill="none" stroke="#8a93a6" stroke-width="2" stroke-dasharray="4 3" id="gapr"/><text id="gapt" y="${road+53}" font-size="10" font-weight="900" fill="#5a6886"></text></g>
+     <g id="meet" opacity="0"><path id="brace" stroke="#f0b400" stroke-width="4" fill="none"/><text id="mt" x="${W/2}" y="52" text-anchor="middle" font-size="14" font-weight="900" fill="#b88600">追いついた！ 2人の道のりは同じ</text></g></svg>`;
+    const T=p.x,sx=d=>40+(goal-40)*d/p.D,tx=m=>40+(goal-40)*m/T;
+    const pe=box.querySelector('#pe'),pl=box.querySelector('#pl'),clk=box.querySelector('#clk');
+    const set=(m)=>{const d1=v1*m,d2=v2*Math.max(0,m-t);pe.setAttribute('transform',`translate(${sx(d1)},${road-18})`);pl.setAttribute("transform",`translate(${sx(d2)},${road+4})`);
+      box.querySelector('#be').setAttribute('width',tx(m)-40);if(m>=t){box.querySelector('#bl').setAttribute('x',tx(t));box.querySelector('#bl').setAttribute('width',tx(m)-tx(t))}};
+    pl.setAttribute("transform",`translate(${sx(0)},${road+4})`);set(0);
+    clk.textContent=`${e}が出発！`;cap.innerHTML='';await sleep(700);
+    await tween(1800,k=>set(t*k));pl.setAttribute('opacity','1');clk.textContent=`${t} 分後、${l}が出発！`;
+    const g=box.querySelector('#gap');g.setAttribute('opacity','1');box.querySelector('#gapr').setAttribute('width',tx(t)-40);const gt=box.querySelector('#gapt');gt.setAttribute('x',44);gt.textContent=`${t}分`;
+    await sleep(900);clk.textContent='';
+    await tween(2600,k=>set(t+(T-t)*k));
+    const mx=sx(p.D);const br=box.querySelector('#brace');br.setAttribute('d',`M40 ${road-40} Q40 ${road-52} ${(40+mx)/2} ${road-52} Q${mx} ${road-52} ${mx} ${road-40}`);
+    box.querySelector('#meet').setAttribute('opacity','1');
+    box.querySelector('#bet').textContent=`${e}の時間（長い）`;const blt=box.querySelector('#blt');blt.setAttribute('x',tx(t)+4);blt.textContent=`${l}の時間`;
+    cap.innerHTML=`<b>わかったこと</b>：① 追いついたとき、<b>2人の道のりは同じ</b>。② 先に出た${e}のほうが、<b>${t} 分長く</b>歩いている。`;done()};
+  const ex=X,lt=`(${X} − ${t})`;
+  p.table=()=>[
+    nx=>{$('#tbl').innerHTML=tableHTML(['','速さ（m/分）','時間（分）','道のり（m）'],[[e,v1,'？','？'],[l,v2,'？','？']]);nx()},
+    chipStep(`🔑 問題文の「${e}が家を出発してから ${X} 分後」。${X} は誰の時間？`,[`${e}の時間`,`${l}の時間`],0,`問題文の太字を読もう。「${e}が出発してから」だから、${X} は${e}の時間。`,null,()=>{$('#tbl').innerHTML=tableHTML(['','速さ（m/分）','時間（分）','道のり（m）'],[[e,v1,ex,'？'],[l,v2,'？','？']])}),
+    chipStep(`${l}の時間は？（アニメで、${l}は ${t} 分短かった）`,[`${X} − ${t}`,`${X} ＋ ${t}`,`${t} − ${X}`],0,`${l}は${e}より ${t} 分あとに出たから、${t} 分短い。だから ひく。`,null,()=>{$('#tbl').innerHTML=tableHTML(['','速さ（m/分）','時間（分）','道のり（m）'],[[e,v1,ex,`${v1}${X}`],[l,v2,`${X} − ${t}`,`${v2}(${X} − ${t})`]])}),
+    chipStep('同じもの（道のり）を ＝ でつなぐと？',[`${v1}${X} ＝ ${v2}(${X} − ${t})`,`${v1}${X} ＝ ${v2}(${X} ＋ ${t})`,`${v1}(${X} − ${t}) ＝ ${v2}${X}`],0,'表の「道のり」の列を、そのまま ＝ でつなぐ。')];
+  p.eq0=`${v1}${X} = ${v2}(${X} − ${t})`;
+  p.steps=[{op:'かっこをはずす',ops:['かっこをはずす','移項','まとめる'],line:EQ(tX(v1,true),lin(v2,-v2*t)),bugs:[{html:EQ(tX(v1,true),lin(v2,-t)),name:'かっこの中の数に掛け忘れ'},{html:EQ(tX(v1,true),lin(v2,v2*t)),name:'マイナスの符号が消えた'}]}].concat(tailSteps(v1,0,v2,-v2*t));
+  p.chk={ln:'左辺',rn:'右辺',ls:`${v1} × (${p.x})`,rs:`${v2} × ((${p.x}) − ${t})`,L:v1*p.x,R:v2*(p.x-t)};
+  p.answers=[{pre:`${e}が出発してから`,unit:'分後',v:p.x,hint:`${X} は${e}の時間。${X} の値が答え。`}];
+  return p}
+function tableHTML(h,rows){return `<table class="tb"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th>${c}</th>`:`<td class="${c==='？'?'q0':''}">${c}</td>`).join('')}</tr>`).join('')}</table>`}
+// ---- ratio ----
+function genRatio(lv){const Ts=[120,150,180,200,240,300,360],P=[[2,1],[3,1],[3,2],[5,3],[1,2],[1,3],[4,1],[2,3]];let p;
+  for(;;){const T=pick(Ts),[a,b]=pick(P);if(T%(a+b)===0){p={T,a,b,n:a+b,u:T/(a+b)};break}}
+  const {T,a,b,n,u}=p;const who=lv===1?'B':'A',k=lv===1?b:a;p.x=k*u;const rest=T-p.x;
+  p.text=`${T} cm のリボンを、A さんと B さんで長さの比が <b>${a}：${b}</b> になるように分けます。<b class="hl">${who}さんのリボンの長さを ${X} cm</b> として比例式をつくり、A さんと B さんのリボンの長さを求めなさい。`;
+  p.animTalk='リボンが切り分けられるよ。何個に分かれるか、数えてみよう。';
+  p.anim=async(box,cap,done)=>{const W=340;box.innerHTML=`<svg viewBox="0 0 ${W} 160" class="asvg"><text x="${W/2}" y="20" text-anchor="middle" font-size="13" font-weight="900" fill="#1d2a4a">全体 ${T} cm</text><g id="pcs"></g><text id="lab" x="${W/2}" y="150" text-anchor="middle" font-size="14" font-weight="900" fill="#b88600"></text><text id="sc" font-size="20">✂️</text></svg>`;
+    const g=box.querySelector('#pcs'),w=300/n;let html='';for(let i=0;i<n;i++)html+=`<rect id="p${i}" x="${20+i*w}" y="40" width="${w}" height="34" fill="#fff4c9" stroke="#c9a800" stroke-width="2"/>`;g.innerHTML=html;
+    const sc=box.querySelector('#sc');cap.innerHTML='';await sleep(500);
+    for(let i=1;i<n;i++){sc.setAttribute('x',20+i*w-10);sc.setAttribute('y',36);await sleep(380);for(let j=0;j<n;j++){const r=box.querySelector('#p'+j);r.setAttribute('x',20+j*w+(j>=i?3:0)+(j>=i?0:0))}
+      for(let j=0;j<n;j++){box.querySelector('#p'+j).setAttribute('x',20+j*(w)+Math.min(j,i)*2)}sfx('snap')}
+    sc.setAttribute('opacity','0');box.querySelector('#lab').textContent=`全部で ${n} 個に切った`;await sleep(900);
+    for(let j=0;j<n;j++){const r=box.querySelector('#p'+j);r.setAttribute('fill',j<a?'#ffd9e5':'#d5e9ff');r.setAttribute('stroke',j<a?'#e8336d':'#1e7fd6');await sleep(220)}
+    await tween(900,kk=>{for(let j=0;j<n;j++){const r=box.querySelector('#p'+j);const base=20+j*w+j*2;r.setAttribute('x',base+(j<a?-6*kk:10*kk));r.setAttribute('y',40+30*kk)}});
+    const ax=20+a*w/2,bx=20+a*w+b*w/2+14;g.insertAdjacentHTML('beforeend',`<text x="${ax}" y="128" text-anchor="middle" font-size="13" font-weight="900" fill="#e8336d">A：${a} 個分</text><text x="${bx}" y="128" text-anchor="middle" font-size="13" font-weight="900" fill="#1e7fd6">B：${b} 個分</text>`);
+    box.querySelector('#lab').textContent='';
+    cap.innerHTML=`<b>わかったこと</b>：${a}：${b} に分けると、<b>全体は ${a}＋${b}＝${n} 個分</b>。${who}さんは ${k} 個分。`;done()};
+  p.table=()=>[
+    nx=>{$('#tbl').innerHTML=tableHTML(['',who,'？'],[['比','？','？'],['長さ（cm）','？','？']]);nx()},
+    chipStep('🔑 表の2つめの列は？（わかっている長さは？）',['全体',who==='A'?'B':'A'],0,`わかっている長さは「全体 ${T} cm」。だから表は「${who}｜全体」。`,null,()=>{$('#tbl').innerHTML=tableHTML(['',who,'全体'],[['比','？','？'],['長さ（cm）',X,T]])}),
+    numStep('全体は何個分？（アニメで切った数）',n,'個分',`${a} ＋ ${b}。`,v=>(v===a||v===b)?`${v} は A か B の分だけ。全体は ${a}＋${b}。`:null,()=>{$('#tbl').innerHTML=tableHTML(['',who,'全体'],[['比',k,n],['長さ（cm）',X,T]])}),
+    chipStep('表の上の段と下の段を、同じ順番で比例式にすると？',[`${X} ： ${T} ＝ ${k} ： ${n}`,`${X} ： ${T} ＝ ${a} ： ${b}`,`${X} ： ${T} ＝ ${n} ： ${k}`],0,o=>o===1?`${a}：${b} は A と B の比。全体と比べるなら ${n} 個分を使う。`:'表の「長さ」の段と「比」の段で、同じ列どうしを同じ位置に。')];
+  p.eq0=`${X} : ${T} = ${k} : ${n}`;
+  p.steps=[{op:'外側の積＝内側の積',ops:['外側の積＝内側の積','移項','かっこをはずす'],line:EQ(tX(n,true),`${T} × ${k}`),bugs:[{html:EQ(tX(k,true),`${T} × ${n}`),name:'外側と内側を取りちがえた'}]},
+    {op:'まとめる',ops:['まとめる','移項',`両辺を${n}でわる`],line:EQ(tX(n,true),num(T*k)),bugs:[{html:EQ(tX(n,true),num(T+k)),name:'かけ算をたし算にした'}]},
+    {op:`両辺を${n}でわる`,ops:shuf([`両辺を${n}でわる`,`両辺に${n}をかける`,`両辺を${k}でわる`]),line:EQ(X,num(p.x)),bugs:[{html:EQ(X,num(T*k*n)),name:'わる代わりに掛けた'}]}];
+  p.chk={ln:'外側の積',rn:'内側の積',ls:`(${p.x}) × ${n}`,rs:`${T} × ${k}`,L:p.x*n,R:T*k};
+  p.answers=[{pre:'A さん',unit:'cm',v:who==='A'?p.x:rest,hint:who==='A'?`A さんは ${X}。`:`全体 ${T} − B さん ${p.x}。`},{pre:'B さん',unit:'cm',v:who==='B'?p.x:rest,hint:who==='B'?`B さんは ${X}。`:`全体 ${T} − A さん ${p.x}。`,hintFn:v=>v===p.x&&who==='A'?`それは A さんの長さ（${X}）。B さんは 全体 − A さん。`:null}];
+  return p}
+// ---- kabusoku ----
+function genKabu(lv){let p;for(;;){const x=4+RR(0,7),a=2+RR(0,3),d=1+RR(0,1),b=a+d,r=1+RR(0,7),s=d*x-r;if(s<1||s>10)continue;p={x,a,b,r,s,T:a*x+r};break}
+  const {x,a,b,r,s,T}=p;
+  p.text=`鉛筆を何人かの生徒に配ります。1人に ${a} 本ずつ配ると ${r} 本余り、1人に ${b} 本ずつ配ると ${s} 本たりません。生徒の人数を ${X} 人として方程式をつくり、<b class="hl">生徒の人数と鉛筆の本数</b>を求めなさい。`;
+  p.animTalk='同じ鉛筆の山を、2通りの配り方で配るよ。';
+  p.anim=async(box,cap,done)=>{const W=340;const kids=3;const kx=i=>50+i*70;
+    box.innerHTML=`<svg viewBox="0 0 ${W} 200" class="asvg"><text id="ttl" x="${W/2}" y="18" text-anchor="middle" font-size="13" font-weight="900" fill="#1d2a4a"></text>
+    ${Array.from({length:kids},(_,i)=>`<text x="${kx(i)}" y="182" text-anchor="middle" font-size="26">🧑</text>`).join('')}<text x="${kx(3)}" y="178" text-anchor="middle" font-size="16" font-weight="900" fill="#5a6886">… <tspan font-style="italic">x</tspan>人</text>
+    <g id="pen"></g><g id="pile"></g><text id="note" x="${W-8}" y="60" text-anchor="end" font-size="12" font-weight="900"></text></svg>`;
+    const pen=box.querySelector('#pen'),ttl=box.querySelector('#ttl'),note=box.querySelector('#note');cap.innerHTML='';
+    const deliver=async(per,miss)=>{pen.innerHTML='';for(let r0=0;r0<per;r0++){for(let i=0;i<kids;i++){const dashed=miss&&i===kids-1&&r0>=per-Math.min(miss,per);
+        pen.insertAdjacentHTML('beforeend',`<rect x="${kx(i)-14+r0*7}" y="${120-r0*0}" width="5" height="28" rx="2" fill="${dashed?'none':'#f0b400'}" stroke="${dashed?'#b86200':'#8a6400'}" stroke-width="1.5" stroke-dasharray="${dashed?'3 2':''}"/>`)}await sleep(260)}};
+    ttl.textContent=`① 1人に ${a} 本ずつ`;await deliver(a,0);
+    box.querySelector('#pile').innerHTML=Array.from({length:Math.min(r,8)},(_,i)=>`<rect x="${W-20-i*7}" y="70" width="5" height="28" rx="2" fill="#f0b400" stroke="#8a6400"/>`).join('');note.setAttribute('fill','#23864a');note.textContent=`${r} 本あまる`;await sleep(1300);
+    box.querySelector('#pile').innerHTML='';note.textContent='';ttl.textContent=`② 1人に ${b} 本ずつ`;await deliver(b,Math.min(s,b));note.setAttribute('fill','#b86200');note.textContent=`${s} 本たりない`;await sleep(900);
+    ttl.textContent='どちらも、同じ鉛筆の山';
+    cap.innerHTML=`<b>わかったこと</b>：配り方がちがっても、<b>鉛筆ぜんぶの本数は同じ</b>。余るときは「＋余り」、たりないときは「−たりない」。`;done()};
+  p.table=()=>[
+    nx=>{$('#tbl').innerHTML=tableHTML(['配り方','鉛筆ぜんぶの本数（xで表す）'],[[`${a}本ずつ（${r}本余る）`,'？'],[`${b}本ずつ（${s}本たりない）`,'？']]);nx()},
+    chipStep(`${a}本ずつ配るとき、鉛筆ぜんぶは？`,[`${a}${X} ＋ ${r}`,`${a}${X} − ${r}`,`${a} ＋ ${r}${X}`],0,`${a}本ずつ ${X} 人分に、余りの ${r} 本をたす。`,null,()=>{$('#tbl').innerHTML=tableHTML(['配り方','鉛筆ぜんぶの本数（xで表す）'],[[`${a}本ずつ（${r}本余る）`,`${a}${X} ＋ ${r}`],[`${b}本ずつ（${s}本たりない）`,'？']])}),
+    chipStep(`${b}本ずつ配るとき、鉛筆ぜんぶは？`,[`${b}${X} − ${s}`,`${b}${X} ＋ ${s}`,`${b} − ${s}${X}`],0,`たりないときは、${b}本ずつ ${X} 人分より ${s} 本少ない。だから ひく。`,null,()=>{$('#tbl').innerHTML=tableHTML(['配り方','鉛筆ぜんぶの本数（xで表す）'],[[`${a}本ずつ（${r}本余る）`,`${a}${X} ＋ ${r}`],[`${b}本ずつ（${s}本たりない）`,`${b}${X} − ${s}`]])}),
+    chipStep('同じもの（鉛筆ぜんぶ）を ＝ でつなぐと？',[`${a}${X} ＋ ${r} ＝ ${b}${X} − ${s}`,`${a}${X} − ${r} ＝ ${b}${X} ＋ ${s}`,`${a}${X} ＋ ${r} ＝ ${b}${X} ＋ ${s}`],0,'表の2つの式を、そのまま ＝ でつなぐ。')];
+  p.eq0=`${a}${X} + ${r} = ${b}${X} − ${s}`;
+  p.steps=tailSteps(a,r,b,-s);
+  p.chk={ln:'左辺',rn:'右辺',ls:`${a} × (${x}) ＋ ${r}`,rs:`${b} × (${x}) − ${s}`,L:T,R:b*x-s};
+  p.answers=[{pre:'生徒',unit:'人',v:x,hint:`${X} は生徒の人数。`},{pre:'鉛筆',unit:'本',v:T,hint:`鉛筆は ${a} × ${x} ＋ ${r}。`,hintFn:v=>v===x?`それは ${X}（生徒の人数）。鉛筆は ${a}×${x}＋${r} で出す。`:null}];
+  return p}
+
+// ================= 書き方の見本 =================
+const MS='−';
+function gCells(tokens,n,cls){const t=tokens.concat(Array(Math.max(0,n-tokens.length)).fill(''));return `<div class="grow ${cls||''}">${t.slice(0,n).map(c=>`<span class="gc">${c==='x'?'<i>x</i>':c===MS?'<span class="mn">−</span>':c}</span>`).join('')}</div>`}
+const TK=s=>[...s];
+function alr(L,Rr,eq=7){L=TK(L);Rr=TK(Rr);return Array(Math.max(0,eq-1-L.length)).fill('').concat(L,['','＝',''],Rr)}
+function goodExample(){
+  const rows=[['4x+2','5x−3',''],['4x−5x','−3−2','移項'],['−x','−5','まとめる'],['x','5','両辺÷(−1)']];
+  return `<div class="goodex"><div class="gl">${rows.map(r=>`<div class="gline">${gCells(alr(r[0],r[1]),15)}<span class="gmemo">${r[2]}</span></div>`).join('')}</div>
+  <p class="mini-h">検算（T）</p><div class="gt"><div><b>左辺</b>${gCells(['',''].concat(TK('4×(5)+2')),10)}${gCells(['＝',''].concat(TK('22')),10)}</div><div><b>右辺</b>${gCells(['',''].concat(TK('5×(5)−3')),10)}${gCells(['＝',''].concat(TK('22')),10)}</div></div>
+  <p class="mini-h">答えの欄</p><div class="gans">生徒 <b>5</b> 人、鉛筆 <b>22</b> 本</div></div>`}
+const RULES=[
+ {t:'1マス1文字',why:'見まちがえない',ng:`<div class="mg">${gCells(['12','+','4'],6,'cram')}</div>`,ok:`<div class="mg">${gCells(['1','2','+','4'],6)}</div>`},
+ {t:'＝ を縦にそろえる',why:'左辺と右辺がすぐ分かる',ng:`<div class="mg">${gCells(['','','＝'],7)}${gCells(['','','','','＝'],7)}${gCells(['＝'],7)}</div>`,ok:`<div class="mg eqline">${gCells(['','','','＝'],7)}${gCells(['','','','＝'],7)}${gCells(['','','','＝'],7)}</div>`},
+ {t:'マイナスは、はっきり',why:'消えない・＝とまざらない',ng:`<div class="mg">${gCells(['x','<span class="eqm">＝<small>-</small></span>','5'],6)}<p class="tiny">「＝」に見える</p></div>`,ok:`<div class="mg">${gCells(['x','','＝','',MS,'5'],6)}</div>`},
+ {t:'1行1操作＋メモ',why:'バグの行がすぐ見つかる',ng:`<div class="mg txt">4<i>x</i>−5<i>x</i>=−5 → −<i>x</i>=−5<p class="tiny">どこで まちがえた？</p></div>`,ok:`<div class="mg txt">4<i>x</i>−5<i>x</i>＝−5 <span class="tag">移項</span><br>−<i>x</i>＝−5 <span class="tag">まとめる</span></div>`},
+ {t:'検算は（　）付き',why:'x と × をまちがえない',ng:`<div class="mg txt big">4<i>x</i>5<p class="tiny">4×5？ 4<i>x</i>？</p></div>`,ok:`<div class="mg txt big">4×(5)</div>`},
+ {t:'答えの欄を全部うめる',why:'全部書いて、はじめて点',ng:`<div class="mg txt">生徒 <b class="bx"></b> 鉛筆 <b class="bx">5</b></div>`,ok:`<div class="mg txt">生徒 <b class="bx">5</b> 鉛筆 <b class="bx">22</b></div>`}];
+function rulesGame(){cur={s:{id:'rules',t:'書き方の見本',icon:'📏',c:'#2E9E4F',paper:''},i:0,clean:0,first:true};
+  const sh=(title,body)=>{$('#app').innerHTML=`<section class="sec play" style="--c:#2E9E4F"><div class="top"><button class="back" id="back">← もどる</button></div><h2 class="shead"><span class="num">📏</span>${title}</h2>${body}<div class="guide"><div id="chara">${chara('normal')}</div><div id="msg" class="msg bubble">${pick(TALK)}</div></div><div class="row" id="acts"></div></section>`;$('#back').onclick=home};
+  // step 1: good example
+  sh('① きちんと書けた例',`<div class="prob">例題：鉛筆を何人かに配ります。1人に4本ずつだと2本余り、5本ずつだと3本たりません。生徒の人数を ${X} 人として、人数と鉛筆の本数を求めなさい。</div>${goodExample()}`);
+  setMsg('まずは、きちんと書けた例を見よう。このあと、1つずつ書き方を見て、○か✕かを答えるクイズだよ。','info');
+  $('#acts').innerHTML='<button class="primary" id="g2">② ○✕クイズへ →</button>';$('#g2').onclick=()=>quiz(0);
+  function quiz(k){if(k>=RULES.length)return hunt();const r=RULES[k];const isOk=Math.random()<.5;
+    sh(`② ○✕クイズ　${k+1} / 6`,`<p class="q">ルール${k+1}：<b>${r.t}</b></p>
+     <div class="howto">👇 この書き方は、きちんと書けている？<br><b class="o">○</b> か <b class="x">✕</b> のボタンを押そう</div>
+     <div class="one">${isOk?r.ok:r.ng}</div>
+     <div class="oxbtns"><button class="oxb ob" data-a="1">○<small>きちんと書けている</small></button><button class="oxb xb" data-a="0">✕<small>ダメ</small></button></div><div id="fixv"></div><div id="step"></div>`);
+    setMsg('絵をよく見て、下の ○ か ✕ のボタンを押してね。','info');
+    let first=true;
+    document.querySelectorAll('.oxb').forEach(b=>b.onclick=()=>{const ans=b.dataset.a==='1';
+      if(ans===isOk){sfx('snap');b.classList.add('good');document.querySelectorAll('.oxb').forEach(q=>q.disabled=true);
+        if(!isOk)$('#fixv').innerHTML=`<p class="q">正しく書くと：</p><div class="one okv">${r.ok}</div>`;
+        const others=shuf(RULES.filter((_,j)=>j!==k)).slice(0,2).map(o=>o.why);const opts=shuf([r.why,...others]);
+        $('#step').innerHTML=`<p class="q">${isOk?'このルールが大事なのは、なぜ？':'なぜダメなの？ 正しく書くと、どういいの？'}</p><div class="chips">${opts.map(o=>`<button class="chip">${o}</button>`).join('')}</div>`;
+        setMsg(isOk?'そう、きちんと書けている！':'そう、ダメな書き方。正しい書き方も見てみよう。','info');
+        document.querySelectorAll('#step .chip').forEach(c=>c.onclick=()=>{if(c.textContent===r.why){sfx('ok');if(first)cur.clean++;setMsg(`そう！ ${r.t} → ${r.why}。`,'ok');$('#acts').innerHTML=`<button class="primary" id="nq">${k<5?'次のルール →':'③ バグさがしへ →'}</button>`;$('#nq').onclick=()=>quiz(k+1)}else{first=false;c.classList.add('no','shake');setMsg('絵をもう一度見て、ルールの名前を思い出そう。','bug')}})}
+      else{first=false;b.classList.add('shake');setMsg(isOk?`よく見て。「${r.t}」は守れているかな？`:`よく見て。「${r.t}」のルールで、おかしいところはない？`,'bug')}})}
+  function hunt(){const found=new Set();
+    const spots=[{id:1,x:4,y:6,w:136,h:30,msg:'① 字がマスからはみ出している'},{id:4,x:120,y:42,w:76,h:28,msg:'④ マイナスが短くて読めない'},{id:2,x:198,y:42,w:132,h:28,msg:'② 1行に2つの操作。メモがない'},
+      {id:3,x:30,y:76,w:70,h:30,msg:'③ ＝ の位置がバラバラ。「x ＝」がない'},{id:5,x:4,y:128,w:300,h:30,msg:'⑤（　）がなく、4x5 は「4×5」か「4x」か分からない'},{id:6,x:150,y:186,w:140,h:40,msg:'⑥ x＝5 を鉛筆の欄に書いた。生徒の欄が空っぽ'}];
+    const svg=`<svg viewBox="0 0 340 240" class="badsvg"><defs><pattern id="gp" width="17" height="17" patternUnits="userSpaceOnUse"><path d="M17 0H0V17" fill="none" stroke="#b9cbe0" stroke-width=".8"/></pattern></defs>
+      <rect x="0" y="0" width="340" height="112" fill="url(#gp)"/><rect x="0" y="122" width="340" height="40" fill="url(#gp)"/>
+      <text x="8" y="30" font-size="25" font-family="Noto Serif CJK JP" transform="rotate(-1 8 30)">4<tspan font-style="italic">x</tspan>+2=5<tspan font-style="italic">x</tspan>-3</text>
+      <text x="44" y="63" font-size="19" font-family="Noto Serif CJK JP" transform="rotate(1.5 44 63)">4<tspan font-style="italic">x</tspan>-5<tspan font-style="italic">x</tspan>=-3-2 → -<tspan font-style="italic">x</tspan>=-5</text>
+      <text x="40" y="100" font-size="24" font-family="Noto Serif CJK JP" transform="rotate(-2 40 100)">=5</text>
+      <text x="8" y="150" font-size="18" font-family="Noto Serif CJK JP">検 4<tspan font-style="italic">x</tspan>5+2=22　5<tspan font-style="italic">x</tspan>5-3=22</text>
+      <text x="8" y="212" font-size="15" font-weight="bold">答えの欄　生徒</text><rect x="122" y="192" width="40" height="30" fill="#fff" stroke="#1d2a4a" stroke-width="2"/><text x="170" y="212" font-size="15" font-weight="bold">鉛筆</text><rect x="208" y="192" width="40" height="30" fill="#fff" stroke="#1d2a4a" stroke-width="2"/><text x="228" y="214" font-size="18" text-anchor="middle" font-weight="bold">5</text>
+      <rect x="0" y="0" width="340" height="240" fill="transparent" id="bg"/>
+      ${spots.map(s=>`<rect class="hot" data-id="${s.id}" x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" rx="6"/>`).join('')}<g id="marks"></g></svg>`;
+    sh('③ バグさがし',`<p class="q">この書き方には <b>バグが6つ</b>。タップして全部見つけよう！</p><div class="badwrap">${svg}</div><p class="cnt2">見つけたバグ <b id="fc">0</b> / 6</p><ol class="foundl" id="fl"></ol>`);
+    setMsg('文字のはみ出し、マイナス、1行の操作の数、＝、（　）、答えの欄。','info');
+    $('#bg').onclick=()=>setMsg('そこはバグじゃないよ。ほかを探そう。','');
+    document.querySelectorAll('.hot').forEach(h=>h.onclick=()=>{const id=+h.dataset.id;if(found.has(id))return;found.add(id);sfx('snap');const sp=spots.find(s=>s.id===id);
+      h.classList.add('hit');$('#marks').insertAdjacentHTML('beforeend',`<circle cx="${sp.x+sp.w-8}" cy="${sp.y+8}" r="9" fill="#e5485b"/><text x="${sp.x+sp.w-8}" y="${sp.y+12}" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">${'①②③④⑤⑥'[id-1]}</text>`);
+      $('#fc').textContent=found.size;$('#fl').insertAdjacentHTML('beforeend',`<li>${sp.msg}</li>`);setMsg(sp.msg,'info');
+      if(found.size===6){confetti(false);sfx('ok');setMsg('6つ全部見つけた！ 直すと、こうなる。','ok');$('#acts').innerHTML='<button class="primary" id="fx">直した例を見る →</button>';$('#fx').onclick=fixed}})}
+  function fixed(){sh('④ 直すと、こうなる',`${goodExample()}<div class="sixchk"><b>紙に書いたら、毎回この6つ</b><ol>${RULES.map(r=>`<li>${r.t}</li>`).join('')}</ol></div>`);
+    S.done.rules=(S.done.rules||0)+1;S.xp+=10;save();$('#xp').textContent=S.xp;sfx('clear');confetti(true);
+    setMsg(S.day===2?`クリア！ ○✕クイズ ノーミス ${cur.clean} / 6。紙を書く前に、結果レポートの2〜3ページ目（書き方の見本）も見ておこう。`:`クリア！ ○✕クイズ ノーミス ${cur.clean} / 6。この6つは、Day2 で紙に書くときに使うよ。`,'ok');
+    $('#acts').innerHTML='<button class="primary" id="hm">メニューへ</button>';$('#hm').onclick=home}
+}
+
+$('#xp').textContent=S.xp;applyOpt();home();
+</script></body></html>
